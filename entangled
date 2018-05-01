@@ -1,0 +1,12 @@
+from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
+from qiskit.wrapper import available_backends, execute
+q = QuantumRegister(2)
+c = ClassicalRegister(2)
+qc = QuantumCircuit(q, c)
+qc.h(q[0])
+qc.cx(q[0], q[1])
+qc.measure(q, c)
+print("Local backends: ", available_backends({'local': True}))
+sim_result = execute(qc, 'Sasapi_simulator')
+print("simulation: ", sim_result)
+print(sim_result.get_counts(qc))
