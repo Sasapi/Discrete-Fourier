@@ -1,6 +1,7 @@
+#
+# from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
+# from qiskit.wrapper import available_backends, execute
 from qiskit import QuantumProgram
-from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
-from qiskit.wrapper import available_backends, execute
 
 Q_program = QuantumProgram()
 QX_TOKEN = "API_TOKEN"
@@ -24,7 +25,8 @@ qc.h(q[0])
 qc.cx(q[0], q[1])
 qc.measure(q, c)
 
-print("Local backends: ", available_backends({'local': True}))
+# print("Local backends: ", available_backends({'local': True}))
+print("ibmqx5 backends: ")
 # sim_result = execute(qc, 'Sasapi_simulator')
 result = Q_program.execute(["superposition"], backend='ibmqx5', shots=1024)
 
@@ -32,3 +34,4 @@ result = Q_program.execute(["superposition"], backend='ibmqx5', shots=1024)
 print("simulation: ", result)
 # print(sim_result.get_counts(qc)
 print(result.get_data("superposition"))
+
