@@ -1,12 +1,34 @@
+from qiskit import QuantumProgram
 from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
 from qiskit.wrapper import available_backends, execute
-q = QuantumRegister(2)
-c = ClassicalRegister(2)
-qc = QuantumCircuit(q, c)
+
+Q_program = QuantumProgram()
+QX_TOKEN = "API_TOKEN"
+QX_URL = "https://quantumexperience.ng.bluemix.net/api"
+QX_HUB = "Sasapi_HUB"
+QX_GROUP = "Sasapi_GROUP"
+QX_PROJECT = "Sasapi_PJ"
+Q_program.set_api(QX_TOKEN, QX_URL,
+                  hub=QX_HUB,
+                  group=QX_GROUP,
+                  project=QX_PROJECT)
+
+# q = QuantumRegister(2)
+q = Q_program.create_quantum_register("q", 2)
+# c = ClassicalRegister(2)
+c = Q_program.create_classical_register("c", 2)
+# qc = QuantumCircuit(q, c)
+qc = Q_program.create_circuit("superposition", [q], [c])
+
 qc.h(q[0])
 qc.cx(q[0], q[1])
 qc.measure(q, c)
+
 print("Local backends: ", available_backends({'local': True}))
-sim_result = execute(qc, 'Sasapi_simulator')
-print("simulation: ", sim_result)
-print(sim_result.get_counts(qc))
+# sim_result = execute(qc, 'Sasapi_simulator')
+result = Q_program.execute(["superposition"], backend='ibmqx5', shots=1024)
+
+# print("simulation: ", sim_result)
+print("simulation: ", result)
+# print(sim_result.get_counts(qc)
+print(result.get_data("superposition"))
