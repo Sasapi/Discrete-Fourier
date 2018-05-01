@@ -4,7 +4,8 @@
 from qiskit import QuantumProgram
 
 Q_program = QuantumProgram()
-QX_TOKEN = "API_TOKEN"
+# QX_TOKEN = "API_TOKEN"
+QX_TOKEN = "968b66135e98d2572bf95183500225f099ef431de374c0dd724fa1225cf87057e8f28280ce74395dc16d1c3e2459e6a8afee32572e6711f816f7d539bdec982f"
 QX_URL = "https://quantumexperience.ng.bluemix.net/api"
 QX_HUB = "Sasapi_HUB"
 QX_GROUP = "Sasapi_GROUP"
